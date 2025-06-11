@@ -1,0 +1,4 @@
+node_modules/
+package-lock.json  # Optional: Some exclude this, but it's often recommended to keep it
+.DS_Store          # macOS metadata file
+.env               # Environment variables (if any)

@@ -1,0 +1,186 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #121212;
+}
+
+canvas {
+  display: block;
+}
+
+#scoreboard {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  background: linear-gradient(135deg, #28a745, #218838);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 12px 20px;
+  border-radius: 12px;
+  box-shadow:
+    0 0 8px rgba(40, 167, 69, 0.7),
+    0 0 20px rgba(72, 255, 0, 0.5);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  user-select: none;
+  z-index: 100;
+  animation: pulseGlow 2.5s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 8px rgba(40, 167, 69, 0.7),
+      0 0 20px rgba(72, 255, 0, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 0 16px rgba(40, 167, 69, 1),
+      0 0 30px rgba(72, 255, 0, 0.8);
+  }
+}
+
+#gameOverScreen {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 320px;
+  padding: 40px 30px;
+  background: #1a1a1a;
+  border-radius: 16px;
+  box-shadow: 
+    0 0 25px rgba(255, 50, 50, 0.8),
+    inset 0 0 20px rgba(255, 0, 0, 0.95);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #ff3b3b;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 18px;
+  z-index: 1000;
+  text-align: center;
+  user-select: none;
+  opacity: 0;
+  animation: fadeInScale 0.8s forwards ease-out;
+}
+
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+#gameOverScreen::before {
+  content: "Game Over";
+  font-size: 46px;
+  font-weight: 900;
+  color: #ff3b3b;
+  text-shadow:
+    0 0 20px #ff1a1a,
+    0 0 40px #ff4d4d,
+    0 0 60px #ff9999;
+  margin-bottom: 20px;
+  display: block;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  animation: flickerGlow 2.5s infinite ease-in-out alternate;
+}
+
+@keyframes flickerGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 20px #ff1a1a,
+      0 0 40px #ff4d4d,
+      0 0 60px #ff9999;
+  }
+  50% {
+    text-shadow:
+      0 0 28px #ff3333,
+      0 0 50px #ff6666,
+      0 0 75px #ffcccc;
+  }
+}
+
+#finalScore, #highScoreDisplay {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUpGlow 1.5s forwards ease-out;
+  animation-delay: 0.4s;
+  font-weight: 700;
+  color: #fff;
+  text-shadow:
+    0 0 8px #f44336,
+    0 0 20px #ff5555,
+    0 0 30px #ff7777;
+  user-select: text;
+  margin: 8px 0;
+}
+
+#highScoreDisplay {
+  animation-delay: 0.8s;
+}
+
+@keyframes fadeInUpGlow {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    text-shadow:
+      0 0 15px #ff0000,
+      0 0 30px #ff4444,
+      0 0 40px #ff6666;
+  }
+}
+
+#gameOverScreen button {
+  margin-top: 25px;
+  padding: 14px 32px;
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(45deg, #28a745, #218838);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow:
+    0 5px 15px rgba(40, 167, 69, 0.6);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+  animation: buttonPulse 3s infinite ease-in-out;
+}
+
+#gameOverScreen button:hover {
+  background: linear-gradient(45deg, #218838, #1e7e34);
+  box-shadow:
+    0 8px 20px rgba(30, 126, 52, 0.8);
+  animation-play-state: paused;
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.6);
+  }
+  50% {
+    box-shadow: 0 10px 30px rgba(72, 255, 0, 0.9);
+  }
+}.victory-message {
+  color: gold;
+  font-size: 1.5em;
+  text-align: center;
+  margin-top: 10px;
+  animation: pop 0.5s ease-in-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(0); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
+}
