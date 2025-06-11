@@ -15,7 +15,7 @@ const Score = mongoose.models.Score || mongoose.model('Score', ScoreSchema);
 
 export default async function handler(req, res) {
   // ✅ Set CORS headers
-  res.setHeader("Access-Control-Allow-Origin", "*"); // Use specific origin in production
+  res.setHeader('Access-Control-Allow-Origin', 'https://new-game-7g95qeu1x-avanishs-projects-3608432a.vercel.app');
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
