@@ -204,7 +204,7 @@ const maxMoving = 1;
 }
  
 const playerName = "John";  
-const backendUrl = "http://localhost:3000";
+ const backendUrl = "https://new-game-dusky.vercel.app";
 
 // Fetch player's high score on game start
 async function fetchHighScore() {
