@@ -204,10 +204,11 @@ const maxMoving = 1;
 }
  
 const playerName = "John";  
- const backendUrl = "https://new-game-dusky.vercel.app";
+ const backendUrl = "https://new-game-dusky.vercel.app/api";
 
 // Fetch player's high score on game start
- async function fetchHighScore() {
+// Fetch high score
+async function fetchHighScore() {
   try {
     const response = await fetch(`${backendUrl}/getscore?player=John`);
     const data = await response.json();
@@ -217,6 +218,7 @@ const playerName = "John";
     console.error("Failed to fetch high score:", err);
   }
 }
+
 // Send new score to backend on game end
 async function sendNewScore(newScore) {
   try {
@@ -237,6 +239,7 @@ async function sendNewScore(newScore) {
     console.error("Error sending score:", err);
   }
 }
+
 
 window.sendNewScore = sendNewScore;
 window.fetchHighScore = fetchHighScore;
