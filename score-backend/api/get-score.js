@@ -14,6 +14,17 @@ const ScoreSchema = new mongoose.Schema({
 const Score = mongoose.models.Score || mongoose.model('Score', ScoreSchema);
 
 export default async function handler(req, res) {
+  // ✅ Set CORS headers
+  res.setHeader("Access-Control-Allow-Origin", "*"); // Use specific origin in production
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // ✅ Handle preflight request
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
+  // ✅ Only allow GET
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Only GET allowed' });
   }
