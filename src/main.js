@@ -207,17 +207,16 @@ const playerName = "John";
  const backendUrl = "https://new-game-dusky.vercel.app";
 
 // Fetch player's high score on game start
-async function fetchHighScore() {
+ async function fetchHighScore() {
   try {
-    const response = await fetch(`${backendUrl}/score/${playerName}`);
+    const response = await fetch(`${backendUrl}/getscore?player=John`);
     const data = await response.json();
-    console.log("Player's High Score:", data.highScore);
+    console.log("High Score:", data.highScore);
     document.getElementById("highScoreDisplay").innerText = `High Score: ${data.highScore}m`;
   } catch (err) {
     console.error("Failed to fetch high score:", err);
   }
 }
-
 // Send new score to backend on game end
 async function sendNewScore(newScore) {
   try {
