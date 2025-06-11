@@ -1,0 +1,30 @@
+!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cube Collector 3D</title>
+  <link rel="stylesheet" href="./src/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body style="margin: 0; overflow: hidden;">
+  <div id="scoreboard">Distance: 0 m</div>
+  <div id="gameOverScreen" style="display: none;">
+    <div id="finalScore">Your Score: 0</div>
+    <div id="highScoreDisplay">High Score: 0</div>
+    <!-- <img id="screenshotImg" style="max-width: 100%; display: none;" /> -->
+    <!-- Buttons -->
+    <div>
+      <div id="message" class="victory-message"></div>
+
+      <!-- <button id="shareBtn">Share Screenshot</button> -->
+      <button onclick="location.reload()">Restart</button>
+    </div>
+  </div>
+<script type="module">
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+  window.THREE = THREE;
+  import initGame from './src/main.js';
+  initGame()
+</script>
+</body>
+</html>
