@@ -220,7 +220,7 @@ const playerName = "John";
 // Send new score to backend on game end
 async function sendNewScore(newScore) {
   try {
-    const response = await fetch(`${backendUrl}/score`, {
+    const response = await fetch(`${backendUrl}/postscore`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -237,6 +237,7 @@ async function sendNewScore(newScore) {
     console.error("Error sending score:", err);
   }
 }
+
 window.sendNewScore = sendNewScore;
 window.fetchHighScore = fetchHighScore;
  
