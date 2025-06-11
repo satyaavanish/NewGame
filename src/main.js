@@ -709,7 +709,7 @@ if (player.position.y < 0.5) {
   camera.position.z = player.position.z + 5;
   camera.position.x = player.position.x;
   camera.lookAt(player.position.x, 1, player.position.z);
-distance = Math.floor((initialPlayerPosition - player.position.z) * 100);
+distance = Math.floor((initialPlayerPosition - player.position.z) * 5);
   document.getElementById('scoreboard').innerText = `Distance: ${distance} m`;
 const timeToActivateMoving = 5; // seconds
 const movingObstacleCap = 2; // max active moving obstacles
