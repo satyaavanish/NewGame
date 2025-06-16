@@ -204,7 +204,7 @@ const maxMoving = 1;
 }
  
  const playerName = "John";  
-const backendUrl = "https://new-game-dusky.vercel.app/api";
+ const backendUrl = "https://backend-theta-tan-35.vercel.app/api";  
 
 // Fetch player's high score on game start
 async function fetchHighScore() {
