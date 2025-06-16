@@ -203,14 +203,13 @@ const maxMoving = 1;
   }
 }
  
-const playerName = "John";  
- const backendUrl = "https://new-game-dusky.vercel.app/api";
+ const playerName = "John";  
+const backendUrl = "https://new-game-dusky.vercel.app/api";
 
 // Fetch player's high score on game start
-// Fetch high score
 async function fetchHighScore() {
   try {
-    const response = await fetch(`${backendUrl}/get-score?player=John`);
+    const response = await fetch(`${backendUrl}/get-score?player=${encodeURIComponent(playerName)}`);
     const data = await response.json();
     console.log("High Score:", data.highScore);
     document.getElementById("highScoreDisplay").innerText = `High Score: ${data.highScore}m`;
@@ -240,9 +239,10 @@ async function sendNewScore(newScore) {
   }
 }
 
-
+// Make available globally
 window.sendNewScore = sendNewScore;
 window.fetchHighScore = fetchHighScore;
+
  
 function createRealisticBuilding(x, z, height = 10) {
   // Base building parameters
