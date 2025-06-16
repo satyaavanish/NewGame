@@ -1,10 +1,33 @@
 {
   "version": 2,
   "builds": [
-    { "src": "api/*.js", "use": "@vercel/node" }
+    { 
+      "src": "api/*.js",
+      "use": "@vercel/node",
+      "config": { 
+        "includeFiles": ["node_modules/**"] 
+      }
+    }
   ],
   "routes": [
-    { "src": "/api/get-score", "dest": "/api/get-score.js" },
-    { "src": "/api/post-score", "dest": "/api/post-score.js" }
+    {
+      "src": "/api/get-score",
+      "dest": "/api/get-score.js",
+      "methods": ["GET"]
+    },
+    {
+      "src": "/api/post-score",
+      "dest": "/api/post-score.js",
+      "methods": ["POST"]
+    },
+    {
+      "src": "/api/(.*)",
+      "status": 404
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html",
+      "continue": true
+    }
   ]
 }
