@@ -203,68 +203,67 @@ const maxMoving = 1;
   }
 }
  
-  const playerName = "John";
-const backendUrl = "https://backend-theta-tan-35.vercel.app/api";
+  const playerName = "John";  
+const backendUrl = "https://backend-theta-tan-35.vercel.app/api";  
 
-let cachedHighScore = 0;
-
-// Fetch player's high score at game start
+// Fetch player's high score on game start
 async function fetchHighScore() {
   try {
     const response = await fetch(`${backendUrl}/get-score?player=${encodeURIComponent(playerName)}`);
     const data = await response.json();
-    cachedHighScore = data.highScore || 0;
-    console.log("High Score:", cachedHighScore);
-    updateScoreUI(cachedHighScore, null); // update only highscore initially
+    
+    console.log("High Score:", data.highScore);
+
+    const highScoreEl = document.getElementById("highScoreDisplay");
+    if (highScoreEl) {
+      highScoreEl.textContent = `High Score: ${data.highScore}m`;
+    }
   } catch (err) {
     console.error("Failed to fetch high score:", err);
   }
 }
 
-// Send new score at game end
-async function handleGameOver(currentScore) {
+// Send new score to backend on game end
+async function sendNewScore(newScore) {
   try {
-    let newHighScore = cachedHighScore;
+    const response = await fetch(`${backendUrl}/post-score`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ player: playerName, score: newScore }),
+    });
+    const data = await response.json();
 
-    // Only send if it's a new high score
-    if (currentScore > cachedHighScore) {
-      const response = await fetch(`${backendUrl}/post-score`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ player: playerName, score: currentScore }),
-      });
-      const data = await response.json();
-      if (data.success) {
-        console.log("Score saved successfully!");
-        newHighScore = currentScore;
-        cachedHighScore = currentScore;
-      } else {
-        console.log("Failed to save score:", data.error);
+    if (data.success) {
+      console.log("Score saved successfully!");
+
+      const finalScoreEl = document.getElementById("finalScore");
+      const highScoreEl = document.getElementById("highScoreDisplay");
+
+      if (finalScoreEl) {
+        finalScoreEl.textContent = `Your Score: ${newScore}m`;
       }
+
+      if (highScoreEl) {
+        highScoreEl.textContent = `High Score: ${data.highScore}m`;
+      }
+    } else {
+      console.log("Failed to save score:", data.error);
     }
-
-    // Update UI once the best score is known
-    updateScoreUI(newHighScore, currentScore);
-
   } catch (err) {
-    console.error("Error handling game over:", err);
+    console.error("Error sending score:", err);
   }
 }
 
-function updateScoreUI(high, current) {
-  if (high !== null) {
-    document.getElementById("highScoreDisplay").innerText = `High Score: ${high}m`;
-  }
-  if (current !== null) {
-    document.getElementById("currentScoreDisplay").innerText = `Your Score: ${current}m`;
-  }
-}
+// Safe to call after DOM loads
+document.addEventListener("DOMContentLoaded", () => {
+  fetchHighScore();
+});
 
-// Make available globally
+// Expose globally if needed elsewhere
+window.sendNewScore = sendNewScore;
 window.fetchHighScore = fetchHighScore;
-window.handleGameOver = handleGameOver;
 
 
  
