@@ -567,7 +567,7 @@ recycleBuildings(player.position.z);
     player.position.y -= 0.05;
     camera.position.y -= 0.05;  
     // In the game over conditions (both falling off and collision):
-    if (player.position.y < -5) {
+    if (player.position.y < -5 ) {
   const gameOverScreen = document.getElementById('gameOverScreen');
   const finalScore = document.getElementById('finalScore');
   const highScoreDisplay = document.getElementById('highScoreDisplay');
@@ -577,26 +577,15 @@ recycleBuildings(player.position.z);
   document.getElementById('scoreboard').style.display = 'none';
   gameOver = true;
   
-  // First fetch the current high score, then compare and update if needed
-  fetch(`${backendUrl}/get-score?player=${encodeURIComponent(playerName)}`)
-    .then(response => response.json())
-    .then(data => {
-      const currentHighScore = data.highScore || 0;
-      highScoreDisplay.innerText = `High Score: ${currentHighScore}m`;
-      
-      if (distance > currentHighScore) {
-        // Only update if this score is higher
-        return sendNewScore(distance).then(() => {
-          highScoreDisplay.innerText = `High Score: ${distance}m`;
-        });
-      }
-    })
-    .catch(err => {
-      console.error("Error handling high score:", err);
-      // Fallback - just show current score
-      highScoreDisplay.innerText = `High Score: ${distance}m`;
-    });
+  fetchHighScore().then(() => {
+    if (distance > highScore) {
+      highScore = distance;
+      sendNewScore(highScore);
+      highScoreDisplay.innerText = `High Score: ${highScore}m`;
+    }  
+  });
 }
+
 
 
 
