@@ -65,7 +65,8 @@ function updatePlayer() {
     baseForwardSpeed = 0.06 + boosts * speedBoost;
     const currentForwardSpeed = baseForwardSpeed + (isJumping ? jumpForwardBoost : 0);
     player.position.z -= currentForwardSpeed;
-
+ const speedElement = document.getElementById('speedDisplay');
+    speedElement.textContent = `Speed: ${(currentForwardSpeed * 200).toFixed(0)} km/h`; 
     if (keys['arrowleft']) player.position.x -= sideSpeed;
     if (keys['arrowright']) player.position.x += sideSpeed;
   }
