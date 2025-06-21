@@ -579,6 +579,7 @@ function recycleBuildings(playerZ) {
     }
   }
 }
+let startTime;
  
 function animate() {
   requestAnimationFrame(animate);
@@ -599,7 +600,11 @@ recycleBuildings(player.position.z);
   gameOverScreen.style.display = 'flex';
   document.getElementById('scoreboard').style.display = 'none';
   gameOver = true;
-  
+   const timeSurvived = Math.floor((performance.now() - startTime) / 1000);
+const minutes = Math.floor(timeSurvived / 60);
+const seconds = timeSurvived % 60;
+const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+document.getElementById('time-survived').textContent = `🕒 Time Survived: ${formattedTime} sec`;
   fetchHighScore().then(() => {
     if (distance > highScore) {
       highScore = distance;
@@ -726,6 +731,11 @@ if (player.position.y < 0.5) {
     document.getElementById('scoreboard').style.display = 'none';
     
     gameOver = true;
+    const timeSurvived = Math.floor((performance.now() - startTime) / 1000);
+const minutes = Math.floor(timeSurvived / 60);
+const seconds = timeSurvived % 60;
+const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+document.getElementById('time-survived').textContent = `🕒 Time Survived: ${formattedTime} sec`;
     sendNewScore(distance);
     
     return;
@@ -771,6 +781,8 @@ animate()
 export default function initGame() {
   const THREE = window.THREE;
    fetchHighScore();
+ startTime = performance.now();
+
   // your game initialization code here...
 }
 
