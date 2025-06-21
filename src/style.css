@@ -110,7 +110,7 @@ canvas {
   }
 }
 
-#finalScore, #highScoreDisplay {
+#finalScore, #highScoreDisplay,#time-survived {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUpGlow 1.5s forwards ease-out;
