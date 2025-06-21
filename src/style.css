@@ -9,7 +9,7 @@ canvas {
   display: block;
 }
 
-#scoreboard {
+#scoreboard,#speedDisplay {
   position: absolute;
   top: 30px;
   right: 20px;
