@@ -947,7 +947,7 @@ export default function initGame() {
   const THREE = window.THREE;
    fetchHighScore();
  startTime = performance.now();
-
+setTimeout(() => showAINotification("🎮 Game Started – Good luck!", "rgba(0, 255, 100, 0.2)"), 1000);
   // your game initialization code here...
 }
 
