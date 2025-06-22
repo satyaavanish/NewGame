@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { World } from './World';
 import { createPlayer } from './Player';
-
+const clock = new THREE.Clock();
 const world = new World();
 const scene = world.scene;
 const camera = world.camera;
