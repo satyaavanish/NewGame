@@ -127,7 +127,9 @@ function updatePlayer() {
     player.position.z -= currentForwardSpeed;
  const speedScale = 200; // Adjust this to get realistic km/h values
 const speedKmh = Math.round(currentForwardSpeed * speedScale); // Round to nearest integer
-
+if (currentForwardSpeed > baseForwardSpeed) {
+  showAINotification("🚀 Speed Increased!", "rgba(0, 200, 255, 0.2)"); // optional: bluish background
+}
 // Update speed display
 const speedElement = document.getElementById('speedDisplay');
 speedElement.textContent = `Speed: ${speedKmh} km/h`;
