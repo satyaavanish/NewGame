@@ -16,7 +16,8 @@ const keys = {};
 window.addEventListener('keyup', e => {
   if (e.key) keys[e.key.toLowerCase()] = false;
 });
-
+let alreadyWarnedRight=false;
+let alreadyWarned=false;
 let isJumping = false;
 let jumpVelocity = 0;
 let initialPlayerPosition = player.position.z;
@@ -672,12 +673,34 @@ const messages = {
 
 let msg = "";
 let startTime;
- 
+ player.velocity = new THREE.Vector3(); 
+   let lastX = player.position.x;
+let sameLaneTimer = 0;
+let laneWarned = false;
+
+function updateLaneMonitor(deltaTime) {
+  if (Math.abs(player.position.x - lastX) < 0.1) {
+    sameLaneTimer += deltaTime;
+  } else {
+    sameLaneTimer = 0;
+    laneWarned = false;
+    lastX = player.position.x;
+  }
+
+  if (sameLaneTimer > 7 && !laneWarned) {
+    showAINotification("🤖 Try switching lanes for better control!", 'rgba(255, 255, 0, 0.25)'); // 🟨 Yellow BG
+    laneWarned = true;
+
+    setTimeout(() => laneWarned = false, 2000);
+  }
+}
 function animate() {
   requestAnimationFrame(animate);
   if (gameOver) return;
 recycleBuildings(player.position.z);
+const deltaTime = clock.getDelta(); // in seconds
 
+  updateLaneMonitor(deltaTime);
   updatePlayer();
   if (Math.abs(player.position.x) > 4) {
     player.position.y -= 0.05;
@@ -878,6 +901,23 @@ if (currentTime > timeToActivateMoving) {
     }
   }
 }
+ const aiMessages = {
+  left: { text: "You're drifting too much left!", color: 'rgba(255, 0, 0, 0.2)' },
+  right: { text: "You're drifting too much right!", color: 'rgba(0, 0, 255, 0.2)' }
+};
+
+if (player.position.x < -3 && !alreadyWarned) {
+  const msg = aiMessages.left;
+  showAINotification(msg.text, msg.color);
+  alreadyWarned = true;
+  setTimeout(() => alreadyWarned = false, 2000);
+}
+  if (player.position.x > 3 && !alreadyWarnedRight) {
+    const msg = aiMessages.right;
+  showAINotification(msg.text, msg.color);
+  alreadyWarnedRight = true;
+  setTimeout(() => alreadyWarnedRight = false, 2000);
+  }
 
    renderer.render(scene, camera);
   
