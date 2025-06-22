@@ -73,6 +73,20 @@ if (navigator.geolocation) {
 } else {
   document.getElementById('locationDisplay').textContent = '📍 Geolocation not supported';
 }
+function showAINotification(message, bgColor = 'rgba(0, 255, 100, 0.15)') {
+  const container = document.getElementById('ai-notifications');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'ai-message';
+  msgDiv.textContent = message;
+
+  msgDiv.style.background = bgColor; // 🔥 Custom color
+
+  container.appendChild(msgDiv);
+
+  setTimeout(() => {
+    container.removeChild(msgDiv);
+  }, 4000);
+}
 
 function updatePlayer() {
   if (gameOver || player.position.y <= 0) {
