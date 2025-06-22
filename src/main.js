@@ -28,6 +28,59 @@ const gravity = 0.009;
 let highScore=0;
 const jumpStrength = 0.21;
 let gameOver = false;
+if (navigator.geolocation) {
+  navigator.geolocation.getCurrentPosition(
+    async (position) => {
+      const lat = position.coords.latitude.toFixed(6);
+      const lon = position.coords.longitude.toFixed(6);
+      
+      console.log("Retrieved coordinates:", lat, lon); // Debug log
+
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&addressdetails=1`,
+          {
+            headers: {
+              'User-Agent': 'YourGame/1.0 (your@email.com)' // Required header
+            }
+          }
+        );
+        
+        if (!response.ok) throw new Error("API request failed");
+        
+        const data = await response.json();
+        console.log("API response:", data); // Debug log
+        
+        const address = data.address || {};
+        const location = address.city || address.town || address.village || 
+                        address.municipality || address.county || 
+                        address.state || address.country || "Nearby location";
+
+        document.getElementById('locationDisplay').textContent = `📍 ${location}`;
+        document.getElementById('locationDisplay').dataset.coords = `${lat}, ${lon}`;
+        
+      } catch (error) {
+        console.error("Geocoding error:", error);
+        document.getElementById('locationDisplay').textContent = '📍 Location unavailable';
+      }
+    },
+    (error) => {
+      console.error("Geolocation error:", error);
+      let message = '📍 Location ';
+      message += error.code === error.PERMISSION_DENIED ? 'access denied' : 
+                error.code === error.TIMEOUT ? 'timeout' : 'unavailable';
+      document.getElementById('locationDisplay').textContent = message;
+    },
+    {
+      enableHighAccuracy: true,
+      timeout: 8000,
+      maximumAge: 0
+    }
+  );
+} else {
+  document.getElementById('locationDisplay').textContent = '📍 Geolocation not supported';
+}
+
 function updatePlayer() {
   if (gameOver || player.position.y <= 0) {
     keys[' '] = false;
