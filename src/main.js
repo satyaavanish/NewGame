@@ -612,6 +612,11 @@ recycleBuildings(player.position.z);
   gameOverScreen.style.display = 'flex';
   document.getElementById('scoreboard').style.display = 'none';
   gameOver = true;
+     if (distance < 1000) document.getElementById("message").innerHTML="Did you even try? 😅";
+else if (distance < 2500)  document.getElementById("message").innerHTML="Not bad, not great";
+else if (distance < 3500)  document.getElementById("message").innerHTML="Getting there!";
+else  document.getElementById("message").innerHTML="You're a legend! 🚀";
+
    const timeSurvived = Math.floor((performance.now() - startTime) / 1000);
 const minutes = Math.floor(timeSurvived / 60);
 const seconds = timeSurvived % 60;
@@ -743,6 +748,10 @@ if (player.position.y < 0.5) {
     document.getElementById('scoreboard').style.display = 'none';
     
     gameOver = true;
+    if (distance < 1000) document.getElementById("message").innerHTML="Did you even try? 😅";
+else if (distance < 2500)  document.getElementById("message").innerHTML="Not bad, not great";
+else if (distance < 3500)  document.getElementById("message").innerHTML="Getting there!";
+else  document.getElementById("message").innerHTML="You're a legend! 🚀";
     const timeSurvived = Math.floor((performance.now() - startTime) / 1000);
 const minutes = Math.floor(timeSurvived / 60);
 const seconds = timeSurvived % 60;
