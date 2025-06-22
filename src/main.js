@@ -66,7 +66,7 @@ function updatePlayer() {
     const currentForwardSpeed = baseForwardSpeed + (isJumping ? jumpForwardBoost : 0);
     player.position.z -= currentForwardSpeed;
  const speedInMs = currentForwardSpeed.toFixed(2); // Shows 2 decimal places (e.g., 4.25 m/s)
-const speedInKmh = (currentForwardSpeed * 3.6).toFixed(0); // Converts m/s → km/h (optional)
+const speedInKmh = (currentForwardSpeed * 3.6).toFixed(2); // Converts m/s → km/h (optional)
 
 // Update speed display
 const speedElement = document.getElementById('speedDisplay');
