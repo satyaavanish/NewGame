@@ -59,7 +59,7 @@ function updatePlayer() {
     }
   } else {
     // Normal movement when on platform
-    const boostInterval = 2000;
+    const boostInterval = 1000;
     const speedBoost = 0.02;
     const boosts = Math.floor(distance / boostInterval);
     baseForwardSpeed = 0.06 + boosts * speedBoost;
