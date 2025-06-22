@@ -65,30 +65,19 @@ function updatePlayer() {
     baseForwardSpeed = 0.06 + boosts * speedBoost;
     const currentForwardSpeed = baseForwardSpeed + (isJumping ? jumpForwardBoost : 0);
     player.position.z -= currentForwardSpeed;
- const speedInMs = currentForwardSpeed.toFixed(2); // Shows 2 decimal places (e.g., 4.25 m/s)
-const speedInKmh = (currentForwardSpeed * 3.6).toFixed(2); // Converts m/s → km/h (optional)
+ const speedScale = 200; // Adjust this to get realistic km/h values
+const speedKmh = Math.round(currentForwardSpeed * speedScale); // Round to nearest integer
 
 // Update speed display
 const speedElement = document.getElementById('speedDisplay');
-speedElement.textContent = `Speed: ${speedInMs} m/s`; // or `${speedInKmh} km/h`
+speedElement.textContent = `Speed: ${speedKmh} km/h`;
 
-// Change background color every 15 km/h (or adjust threshold)
-const speedThreshold = 15; // Change color every 15 units (km/h or m/s)
-const speedTier = Math.floor(speedInKmh / speedThreshold); // or use speedInMs if in m/s
-
-// Apply different colors based on speed tier
-if (speedTier < 1) {
-  speedElement.style.background = "#4CAF50"; // Green (slow)
-} 
-else if (speedTier < 2) {
-  speedElement.style.background = "#FFC107"; // Yellow (medium)
-} 
-else if (speedTier < 3) {
-  speedElement.style.background = "#FF5722"; // Orange (fast)
-} 
-else {
-  speedElement.style.background = "#F44336"; // Red (very fast)
-}
+// Set background color based on speed ranges
+speedElement.style.background = 
+  speedKmh >= 45 ? "#F44336" :  // Red (45+ km/h)
+  speedKmh >= 30 ? "#FF5722" :  // Orange (30-44 km/h)
+  speedKmh >= 15 ? "#FFC107" :  // Yellow (15-29 km/h)
+  "#4CAF50";                   // Green (<15 km/h)
     if (keys['arrowleft']) player.position.x -= sideSpeed;
     if (keys['arrowright']) player.position.x += sideSpeed;
   }
