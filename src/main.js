@@ -591,6 +591,41 @@ function recycleBuildings(playerZ) {
     }
   }
 }
+const messages = {
+  low: [
+    "Did you even try? 😅",
+    "Blink and it's over! 😂",
+    "Gravity: 1, You: 0 🪂",
+    "That was... quick. 🍃"
+  ],
+  mid: [
+    "You're warming up! 🔥",
+    "A decent effort! 💪",
+    "Try again — greatness awaits! ⭐",
+    "Keep swinging, future pro! 🕸️"
+  ],
+  high: [
+    "Now we're talking! ⚡",
+    "Solid run! You're improving. 🚀",
+    "The path to glory is near! 🏃‍♂️💨",
+    "Skill + momentum = 🔥"
+  ],
+  elite: [
+    "You're a legend! 🚀",
+    "Unstoppable! 🌟",
+    "High-flyer vibes! 🎈",
+    "Epic! We felt that from orbit 🛰️"
+  ],
+  god: [
+    "God-tier. 💥",
+    "Record-shattering performance! 📊",
+    "Write your name in the stars 🌠",
+    "You broke the game! 👑",
+   "You Are challenging the Developer"
+  ]
+};
+
+let msg = "";
 let startTime;
  
 function animate() {
@@ -612,10 +647,13 @@ recycleBuildings(player.position.z);
   gameOverScreen.style.display = 'flex';
   document.getElementById('scoreboard').style.display = 'none';
   gameOver = true;
-     if (distance < 1000) document.getElementById("message").innerHTML="Did you even try? 😅";
-else if (distance < 2500)  document.getElementById("message").innerHTML="Not bad, not great";
-else if (distance < 3500)  document.getElementById("message").innerHTML="Getting there!";
-else  document.getElementById("message").innerHTML="You're a legend! 🚀";
+ if (distance < 1000) msg = messages.low[Math.floor(Math.random() * messages.low.length)];
+else if (distance < 2000) msg = messages.mid[Math.floor(Math.random() * messages.mid.length)];
+else if (distance < 3000) msg = messages.high[Math.floor(Math.random() * messages.high.length)];
+else if (distance < 4000) msg = messages.elite[Math.floor(Math.random() * messages.elite.length)];
+else msg = messages.god[Math.floor(Math.random() * messages.god.length)];
+
+document.getElementById("message").innerHTML = msg;   
 
    const timeSurvived = Math.floor((performance.now() - startTime) / 1000);
 const minutes = Math.floor(timeSurvived / 60);
@@ -748,10 +786,13 @@ if (player.position.y < 0.5) {
     document.getElementById('scoreboard').style.display = 'none';
     
     gameOver = true;
-    if (distance < 1000) document.getElementById("message").innerHTML="Did you even try? 😅";
-else if (distance < 2500)  document.getElementById("message").innerHTML="Not bad, not great";
-else if (distance < 3500)  document.getElementById("message").innerHTML="Getting there!";
-else  document.getElementById("message").innerHTML="You're a legend! 🚀";
+    if (distance < 1000) msg = messages.low[Math.floor(Math.random() * messages.low.length)];
+else if (distance < 2000) msg = messages.mid[Math.floor(Math.random() * messages.mid.length)];
+else if (distance < 3000) msg = messages.high[Math.floor(Math.random() * messages.high.length)];
+else if (distance < 4000) msg = messages.elite[Math.floor(Math.random() * messages.elite.length)];
+else msg = messages.god[Math.floor(Math.random() * messages.god.length)];
+
+document.getElementById("message").innerHTML = msg;
     const timeSurvived = Math.floor((performance.now() - startTime) / 1000);
 const minutes = Math.floor(timeSurvived / 60);
 const seconds = timeSurvived % 60;
