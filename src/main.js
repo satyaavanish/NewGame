@@ -935,7 +935,14 @@ if (player.position.x < -3 && !alreadyWarned) {
   }
 const milestoneInterval = 1000;
 const currentMilestone = Math.floor(distance / milestoneInterval);
-let colors = ['#ffe066', '#a3e635', '#38bdf8', '#f87171'];
+ let colors = [
+  
+  'rgba(204, 238, 255, 0.3)', // light blue
+  'rgba(255, 204, 229, 0.3)', // light pink
+  'rgba(255, 230, 230, 0.3)', // very light red
+  'rgba(230, 230, 255, 0.3)', // very light purple
+];
+
 const randomColor = colors[Math.floor(Math.random() * colors.length)];
 if (currentMilestone > lastMilestone) {
   const meters = currentMilestone * milestoneInterval;
