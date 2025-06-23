@@ -7,6 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body style="margin: 0; overflow: hidden;">
+  <div id="instructionBox">
+    <h2>Glide Rush - How to Play</h2>
+    <p>🏃 <strong>Movement:</strong> Use LEFT/RIGHT arrow keys to steer</p>
+    <p>🦘 <strong>Jump:</strong> Press SPACEBAR to leap over obstacles</p>
+    <p>⚠️ <strong>Avoid:</strong> Dodge barriers to keep running</p>
+    <p>📊 <strong>Stats:</strong> Track your distance & speed in real-time</p>
+    <p>📍 <strong>Bonus:</strong> Enable GPS for location-based surprises (optional)</p>
+    <button id="startGameBtn"> Start Gliding</button>
+</div>
   <div id="locationDisplay">
   📍 Locating...
 </div>
@@ -19,16 +28,25 @@
     <div id="time-survived">🕕 Time Survived:</div>
     <div>
       <div id="message" class="victory-message"></div>
-
-      <!-- <button id="shareBtn">Share Screenshot</button> -->
       <button onclick="location.reload()">Restart</button>
     </div>
   </div>
-<script type="module">
-  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-  window.THREE = THREE;
-  import initGame from './src/main.js';
-  initGame()
-</script>
+ <script type="module">
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+    window.THREE = THREE;
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      const startButton = document.getElementById('startGameBtn');
+      const instructionBox = document.getElementById('instructionBox');
+      
+      startButton.addEventListener('click', () => {
+       
+        instructionBox.style.display = 'none';
+        import('./src/main.js').then(module => {
+          module.initGame();
+        });
+      });
+    });
+  </script>
 </body>
 </html>
