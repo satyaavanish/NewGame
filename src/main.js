@@ -16,6 +16,7 @@ const keys = {};
 window.addEventListener('keyup', e => {
   if (e.key) keys[e.key.toLowerCase()] = false;
 });
+let lastMilestone = 0;
 let lastBoostLevel = 0;
 let alreadyWarnedRight=false;
 let alreadyWarned=false;
@@ -164,6 +165,16 @@ speedElement.style.background =
 
   player.rotation.x += 0.08;
 }
+const milestoneInterval = 1000;
+const currentMilestone = Math.floor(distance / milestoneInterval);
+let colors = ['#ffe066', '#a3e635', '#38bdf8', '#f87171'];
+const randomColor = colors[Math.floor(Math.random() * colors.length)];
+if (currentMilestone > lastMilestone) {
+  const meters = currentMilestone * milestoneInterval;
+ showAINotification(`🚀 Distance Milestone: ${meters}m`, randomColor);
+  lastMilestone = currentMilestone;
+}
+
 
 
 
