@@ -33,21 +33,33 @@
     </div>
   </div>
  <script type="module">
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
-    window.THREE = THREE;
-  
-    document.addEventListener('DOMContentLoaded', () => {
-      const startButton = document.getElementById('startGameBtn');
-      const instructionBox = document.getElementById('instructionBox');
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
+  window.THREE = THREE;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const startButton = document.getElementById('startGameBtn');
+    const instructionBox = document.getElementById('instructionBox');
+
+    startButton.addEventListener('click', async () => {
+      instructionBox.style.display = 'none';
       
-      startButton.addEventListener('click', () => {
+      try {
+        const gameModule = await import('./src/main.js');
        
-        instructionBox.style.display = 'none';
-        import('./src/main.js').then(module => {
-          module.initGame();
-        });
-      });
+        if (gameModule.initGame) {
+          gameModule.initGame();
+        } else if (gameModule.default) {
+          gameModule.default();
+        } else {
+          console.error("No valid export found in main.js");
+        }
+      } catch (err) {
+        console.error("Error loading game module:", err);
+       
+        alert("Failed to load game. Please check console for details.");
+      }
     });
-  </script>
+  });
+</script>
 </body>
 </html>
