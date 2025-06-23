@@ -659,7 +659,6 @@ const messages = {
   low: [
     "Did you even try? 😅",
     "Blink and it's over! 😂",
-    "Gravity: 1, You: 0 🪂",
     "That was... quick. 🍃"
   ],
   mid: [
@@ -669,7 +668,6 @@ const messages = {
     "Keep swinging, future pro! 🕸️"
   ],
   high: [
-    "Now we're talking! ⚡",
     "Solid run! You're improving. 🚀",
     "The path to glory is near! 🏃‍♂️💨",
     "Skill + momentum = 🔥"
@@ -678,12 +676,10 @@ const messages = {
     "You're a legend! 🚀",
     "Unstoppable! 🌟",
     "High-flyer vibes! 🎈",
-    "Epic! We felt that from orbit 🛰️"
   ],
   god: [
     "God-tier. 💥",
     "Record-shattering performance! 📊",
-    "Write your name in the stars 🌠",
     "You broke the game! 👑",
    "You Are challenging the Developer"
   ]
