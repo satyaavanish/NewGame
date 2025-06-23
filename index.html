@@ -43,26 +43,32 @@
   document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('startGameBtn');
     const instructionBox = document.getElementById('instructionBox');
+    const restartButton = document.getElementById('restartButton'); // Add ID to your restart button
 
-    startButton.addEventListener('click', async () => {
+    // Check if instructions have been shown before
+    if (!sessionStorage.getItem('instructionsShown')) {
+      instructionBox.style.display = 'block';
+      sessionStorage.setItem('instructionsShown', 'true');
+    } else {
       instructionBox.style.display = 'none';
       
-      try {
-        const gameModule = await import('./src/main.js');
-       
-        if (gameModule.initGame) {
-          gameModule.initGame();
-        } else if (gameModule.default) {
-          gameModule.default();
-        } else {
-          console.error("No valid export found in main.js");
-        }
-      } catch (err) {
-        console.error("Error loading game module:", err);
-       
-        alert("Failed to load game. Please check console for details.");
-      }
+      import('./src/main.js').then(module => {
+        if (module.initGame) module.initGame();
+        else if (module.default) module.default();
+      });
+    }
+
+    startButton.addEventListener('click', () => {
+      instructionBox.style.display = 'none';
+      import('./src/main.js').then(module => {
+        if (module.initGame) module.initGame();
+        else if (module.default) module.default();
+      });
     });
+ 
+    restartButton.onclick = () => {
+      location.reload();
+    };
   });
 </script>
 </body>
