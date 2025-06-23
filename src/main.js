@@ -81,8 +81,7 @@ function showAINotification(message, bgColor = 'rgba(0, 255, 100, 0.15)') {
   msgDiv.className = 'ai-message';
   msgDiv.textContent = message;
 
-  msgDiv.style.background = bgColor; // 🔥 Custom color
-
+  msgDiv.style.background = bgColor;  
   container.appendChild(msgDiv);
 
   setTimeout(() => {
@@ -97,22 +96,17 @@ function updatePlayer() {
     keys['arrowright'] = false;
     return;
   }
-
-  // Check if player is off the platform (x position beyond platform width)
-  const platformWidth = 4; // Half width of the platform
+ 
+  const platformWidth = 4;  
   const isOffPlatform = Math.abs(player.position.x) > platformWidth;
-
-  // Apply different movement when off platform
+ 
   if (isOffPlatform) {
-    // Disable forward movement when falling off
-    player.position.z -= baseForwardSpeed * 0.5; // Slow down forward movement
     
-    // Apply gravity more strongly when off platform
+    player.position.z -= baseForwardSpeed * 0.5;  
     if (!isJumping) {
       player.position.y -= gravity * 2;
     }
-    
-    // Prevent moving back onto platform while falling
+   
     if (keys['arrowleft'] && player.position.x > -platformWidth) {
       player.position.x -= sideSpeed;
     }
@@ -120,15 +114,15 @@ function updatePlayer() {
       player.position.x += sideSpeed;
     }
   } else {
-    // Normal movement when on platform
+    
     const boostInterval = 1000;
     const speedBoost = 0.02;
     const boosts = Math.floor(distance / boostInterval);
     baseForwardSpeed = 0.06 + boosts * speedBoost;
     const currentForwardSpeed = baseForwardSpeed + (isJumping ? jumpForwardBoost : 0);
     player.position.z -= currentForwardSpeed;
- const speedScale = 200; // Adjust this to get realistic km/h values
-const speedKmh = Math.round(currentForwardSpeed * speedScale); // Round to nearest integer
+ const speedScale = 200;  
+const speedKmh = Math.round(currentForwardSpeed * speedScale); 
  
 if (boosts > lastBoostLevel) {
   showAINotification("🚀 Speed Increased!", "rgba(0, 200, 255, 0.2)");
@@ -136,8 +130,7 @@ if (boosts > lastBoostLevel) {
 }
 const speedElement = document.getElementById('speedDisplay');
 speedElement.textContent = `Speed: ${speedKmh} km/h`;
-
-// Set background color based on speed ranges
+ 
 speedElement.style.background = 
   speedKmh >= 45 ? "#F44336" :  // Red (45+ km/h)
   speedKmh >= 30 ? "#FF5722" :  // Orange (30-44 km/h)
@@ -146,8 +139,7 @@ speedElement.style.background =
     if (keys['arrowleft']) player.position.x -= sideSpeed;
     if (keys['arrowright']) player.position.x += sideSpeed;
   }
-
-  // Rest of your jump logic remains the same
+ 
   if (keys[' '] && !isJumping && !isOffPlatform) {
     isJumping = true;
     jumpVelocity = jumpStrength;
@@ -232,7 +224,7 @@ for (let i = 0; i < obstacleCount; i++) {
     x = (Math.random() - 0.5) * 6;
   } while (isTooCloseToOtherMovingObstacles(x, z, obstacles));
 
-  const obstacle = createObstacle(scene, z, false); // all static initially
+  const obstacle = createObstacle(scene, z, false);  
   obstacle.position.x = x;
   obstacle.userData.willMoveLater = Math.random() < 0.4; // ~40% chance
 
@@ -282,8 +274,7 @@ const maxMoving = 1;
  
   const playerName = "John";  
 const backendUrl = "https://backend-theta-tan-35.vercel.app/api";  
-
-// Fetch player's high score on game start
+ 
 async function fetchHighScore() {
   try {
     const response = await fetch(`${backendUrl}/get-score?player=${encodeURIComponent(playerName)}`);
@@ -300,7 +291,7 @@ async function fetchHighScore() {
   }
 }
 
-// Send new score to backend on game end
+ 
 async function sendNewScore(newScore) {
   try {
     const response = await fetch(`${backendUrl}/post-score`, {
@@ -332,13 +323,12 @@ async function sendNewScore(newScore) {
     console.error("Error sending score:", err);
   }
 }
-
-// Safe to call after DOM loads
+ 
 document.addEventListener("DOMContentLoaded", () => {
   fetchHighScore();
 });
 
-// Expose globally if needed elsewhere
+
 window.sendNewScore = sendNewScore;
 window.fetchHighScore = fetchHighScore;
 
@@ -350,7 +340,7 @@ function createRealisticBuilding(x, z, height = 10) {
   const depth = 15 + Math.random() * 10;
   const floors = Math.floor(height / 3);
   const floorHeight = height / floors;
-  const borderDesignType = Math.floor(Math.random() * 9); // 0 to 5
+  const borderDesignType = Math.floor(Math.random() * 9);  
 
  
   const building = new THREE.Group();
@@ -720,7 +710,7 @@ const deltaTime = clock.getDelta(); // in seconds
   if (Math.abs(player.position.x) > 4) {
     player.position.y -= 0.05;
     camera.position.y -= 0.05;  
-    // In the game over conditions (both falling off and collision):
+    
     if (player.position.y < -5 ) {
   const gameOverScreen = document.getElementById('gameOverScreen');
   const finalScore = document.getElementById('finalScore');
@@ -758,7 +748,7 @@ document.getElementById('time-survived').textContent = `🕒 Time Survived: ${fo
 }
  camera.position.z = player.position.z + 20;
 camera.position.x = player.position.x;
-// Make camera look slightly downward when player is falling
+ 
 if (player.position.y < 0.5) {
   camera.lookAt(player.position.x, player.position.y - 2, player.position.z);
 } else {
@@ -803,7 +793,7 @@ if (player.position.y < 0.5) {
             if (dz < 1.2 && Math.abs(dx) < 1.6 && Math.abs(dx) > 0.001) {
                 const pushDirection = dx < 0 ? -1 : 1;
                 const strength = (1.6 - Math.abs(dx)) / (1.6 + 0.001);
-                const repulsionForce = other.userData.repulsionForce * 0.6; // Moving obstacles repel static obstacles
+                const repulsionForce = other.userData.repulsionForce * 0.6;  
                 totalRepulsion += pushDirection * repulsionForce * strength;
             }
         }
@@ -893,7 +883,7 @@ document.getElementById('time-survived').textContent = `🕒 Time Survived: ${fo
 distance = Math.floor((initialPlayerPosition - player.position.z) * 5);
   document.getElementById('scoreboard').innerText = `Distance: ${distance} m`;
 const timeToActivateMoving = 5; // seconds
-const movingObstacleCap = 2; // max active moving obstacles
+const movingObstacleCap = 2; 
 const currentTime = performance.now() / 1000;
 
 if (currentTime > timeToActivateMoving) {
@@ -902,7 +892,7 @@ if (currentTime > timeToActivateMoving) {
   for (let obs of obstacles) {
     if (activeMoving >= movingObstacleCap) break;
 
-   if (!obs.userData.isMoving && obs.userData.willMoveLater && Math.random() < 0.04) { // low chance to activate
+   if (!obs.userData.isMoving && obs.userData.willMoveLater && Math.random() < 0.04) { 
       obs.userData = {
         direction: Math.random() > 0.5 ? 1 : -1,
         speed: 0.02 + Math.random() * 0.02,
