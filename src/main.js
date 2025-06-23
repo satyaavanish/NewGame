@@ -165,16 +165,6 @@ speedElement.style.background =
 
   player.rotation.x += 0.08;
 }
-const milestoneInterval = 1000;
-const currentMilestone = Math.floor(distance / milestoneInterval);
-let colors = ['#ffe066', '#a3e635', '#38bdf8', '#f87171'];
-const randomColor = colors[Math.floor(Math.random() * colors.length)];
-if (currentMilestone > lastMilestone) {
-  const meters = currentMilestone * milestoneInterval;
- showAINotification(`🚀 Distance Milestone: ${meters}m`, randomColor);
-  lastMilestone = currentMilestone;
-}
-
 
 
 
@@ -943,6 +933,16 @@ if (player.position.x < -3 && !alreadyWarned) {
   alreadyWarnedRight = true;
   setTimeout(() => alreadyWarnedRight = false, 2000);
   }
+const milestoneInterval = 1000;
+const currentMilestone = Math.floor(distance / milestoneInterval);
+let colors = ['#ffe066', '#a3e635', '#38bdf8', '#f87171'];
+const randomColor = colors[Math.floor(Math.random() * colors.length)];
+if (currentMilestone > lastMilestone) {
+  const meters = currentMilestone * milestoneInterval;
+ showAINotification(`🚀 Distance Milestone: ${meters}m`, randomColor);
+  lastMilestone = currentMilestone;
+}
+
 
    renderer.render(scene, camera);
   
