@@ -962,7 +962,9 @@ export default function initGame() {
    fetchHighScore();
  startTime = performance.now();
 setTimeout(() => showAINotification("🎮 Game Started – Good luck!", "rgba(0, 255, 100, 0.2)"), 1000);
-  // your game initialization code here...
+ const hud = document.getElementById('hud');
+hud.style.display = 'block';
+
 }
 
 
