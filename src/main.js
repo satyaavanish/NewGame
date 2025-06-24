@@ -31,50 +31,7 @@ const gravity = 0.009;
 let highScore=0;
 const jumpStrength = 0.21;
 let gameOver = false;
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(
-    async (position) => {
-      const lat = position.coords.latitude.toFixed(6);
-      const lon = position.coords.longitude.toFixed(6);
-      
-      try {
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&addressdetails=1`,
-          {
-            headers: {
-              'User-Agent': 'YourGame/1.0 (your@email.com)'
-            }
-          }
-        );
-
-        if (!response.ok) throw new Error("API request failed");
-        
-        const data = await response.json();
-        const state = data?.address?.state || "Unknown State";
-
-        document.getElementById('locationDisplay').textContent = `📍 ${state}`;
-        document.getElementById('locationDisplay').dataset.coords = `${lat}, ${lon}`;
-        
-      } catch (error) {
-        console.error("Geocoding error:", error);
-        document.getElementById('locationDisplay').textContent = '📍 Location unavailable';
-      }
-    },
-    (error) => {
-      console.error("Geolocation error:", error);
-      const msg = error.code === error.PERMISSION_DENIED ? '📍 Access denied' :
-                  error.code === error.TIMEOUT ? '📍 Timeout' : '📍 Unavailable';
-      document.getElementById('locationDisplay').textContent = msg;
-    },
-    {
-      enableHighAccuracy: true,
-      timeout: 8000,
-      maximumAge: 0
-    }
-  );
-} else {
-  document.getElementById('locationDisplay').textContent = '📍 Geolocation not supported';
-}
+ 
 function showAINotification(message, bgColor = 'rgba(0, 255, 100, 0.15)') {
   const container = document.getElementById('ai-notifications');
   const msgDiv = document.createElement('div');
