@@ -896,6 +896,18 @@ if (currentMilestone > lastMilestone) {
  showAINotification(`🚀 Distance Milestone: ${meters}m`, randomColor);
   lastMilestone = currentMilestone;
 }
+  const messageEl = document.getElementById('message');
+messageEl.className = '';  
+const difference = highScore - distance;
+if (difference > 0 && difference <= 500) {
+  messageEl.textContent = `📉 You were just ${difference}m away from the high score!`;
+  messageEl.classList.add('victory-message');
+} else if (distance > highScore) {
+  messageEl.textContent = `🎉 New High Score!`;
+  messageEl.classList.add('highscore-message');
+} else {
+  messageEl.textContent = '';
+}
 
 
    renderer.render(scene, camera);
