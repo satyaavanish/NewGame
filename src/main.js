@@ -242,6 +242,7 @@ async function fetchHighScore() {
     const highScoreEl = document.getElementById("highScoreDisplay");
     if (highScoreEl) {
       highScoreEl.textContent = `High Score: ${data.highScore}m`;
+      highScore = data.highScore;
     }
   } catch (err) {
     console.error("Failed to fetch high score:", err);
