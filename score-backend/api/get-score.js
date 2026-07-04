@@ -19,27 +19,28 @@ const ScoreSchema = new mongoose.Schema({
 
 const Score = mongoose.models.Score || mongoose.model('Score', ScoreSchema);
 
-// Helper function to set CORS headers
-const setCorsHeaders = (res) => {
+const setCorsHeaders = (req, res) => {
   const allowedOrigins = [
-    'https://new-game-7g95qeu1x-avanishs-projects-3608432a.vercel.app',
-    'https://new-game-dusky.vercel.app',
-    'http://localhost:3000' // for local development
+    "https://new-game-dusky.vercel.app",
+    "https://new-game-7g95qeu1x-avanishs-projects-3608432a.vercel.app",
+    "http://localhost:3000"
   ];
-  
+
   const origin = req.headers.origin;
+
   if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader("Access-Control-Allow-Origin", origin);
   }
-  
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
+
+  res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 };
+
 
 export default async function handler(req, res) {
   // Set CORS headers
-  setCorsHeaders(res);
+ setCorsHeaders(req, res);
 
   // Handle preflight request
   if (req.method === 'OPTIONS') {
