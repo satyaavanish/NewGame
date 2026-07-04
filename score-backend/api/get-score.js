@@ -1,15 +1,20 @@
 import mongoose from 'mongoose';
-
+console.log("MONGODB_URI exists:", !!process.env.MONGODB_URI);
 const connectDB = async () => {
   try {
     if (mongoose.connection.readyState === 0) {
       await mongoose.connect(process.env.MONGODB_URI);
       console.log('Connected to MongoDB');
     }
-  } catch (err) {
-    console.error('MongoDB connection error:', err);
-    throw err;
-  }
+  }  
+  catch (err) {
+  console.error(err);
+
+  return res.status(500).json({
+    success: false,
+    error: err.message
+  });
+}
 };
 
 const ScoreSchema = new mongoose.Schema({
