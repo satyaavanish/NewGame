@@ -1,5 +1,7 @@
 # 🏃 Glide Rush
 Link- https://new-game-dusky.vercel.app/
+
+
 A browser-based  endless runner game built with Three.js. Navigate a dynamic city corridor, dodge obstacles, rack up distance, and compete for the highest score — all in your browser.
 
 ---
